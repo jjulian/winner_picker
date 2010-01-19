@@ -15,8 +15,7 @@
           items: [{
             xtype: 'grid',
             id: 'attendeeGrid',
-            title: 'Attendees',
-            bbar: [{
+            buttons: [{
               text: 'Pick a Winner!',
               handler: function() {
                 var pickWinner = function(delay, cb) {
@@ -40,7 +39,7 @@
             ]),
             store: new Ext.data.ArrayStore({
               fields: ['name'],
-              data: [['Shea'],['Jonathan'],['Patrick'],['Alan'],['Bill'],['Cassie']]
+              data: [['Shea'],['Jonathan'],['Patrick'],['Jay'],['Peter']]
             })
           }]
         });
