@@ -21,7 +21,9 @@
               handler: function() {
                 var pickWinner = function(delay, cb) {
                   var choice = Math.floor(Math.random() * this.getStore().getCount() + 1) - 1;
-                  console.log(this.getStore().getAt(choice).get('name'));
+                  if (console) {
+                    console.log(this.getStore().getAt(choice).get('name'));
+                  }
                   this.getSelectionModel().selectRow(choice);
                   delay = Math.floor(delay * 1.17);
                   if (delay < 800) {
