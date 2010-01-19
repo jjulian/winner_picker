@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Winner Picker</title>
+    <link rel="stylesheet" type="text/css" href="ext-3.1.0/resources/css/ext-all.css" />
+    <script type="text/javascript" src="ext-3.1.0/ext-base-debug-w-comments.js"></script>
+    <script type="text/javascript" src="ext-3.1.0/ext-all-debug.js"></script>
+    <script>
+      Ext.BLANK_IMAGE_URL = 'ext-3.1.0/resources/images/default/s.gif';
+
+      Ext.onReady(function(){
+        Ext.QuickTips.init();
+
+        var viewport = new Ext.Viewport({
+          layout: 'fit',
+          items: [{
+            xtype: 'grid',
+            id: 'attendeeGrid',
+            title: 'Attendees',
+            bbar: [{
+              text: 'Pick a Winner!',
+              handler: function() {
+                var pickWinner = function(delay, cb) {
+                  var choice = Math.floor(Math.random() * this.getStore().getCount() + 1) - 1;
+                  console.log(this.getStore().getAt(choice).get('name'));
+                  this.getSelectionModel().selectRow(choice);
+                  delay = Math.floor(delay * 1.17);
+                  if (delay < 800) {
+                    cb.defer(delay, this, [delay, cb]);
+                  } else {
+                    Ext.Msg.alert('Winner', this.getStore().getAt(choice).get('name'));
+                  }
+                };
+                (pickWinner.createDelegate(Ext.getCmp('attendeeGrid'), [6, pickWinner]))();
+              }
+            }],
+            cm: new Ext.grid.ColumnModel([
+              {header: "Name", width: 500}
+            ]),
+            store: new Ext.data.ArrayStore({
+              fields: ['name'],
+              data: [['Shea'],['Jonathan'],['Patrick'],['Alan'],['Bill'],['Cassie']]
+            })
+          }]
+        });
+
+      });
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
